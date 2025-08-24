@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Karan Gattani — Data Analyst Portfolio</title>
-  <meta name="description" content="Portfolio of Karan Gattani — Data Analyst skilled in Python, SQL, Excel, Power BI, Tableau. Explore projects, timeline, blog, and contact." />
+  <meta name="description" content="Karan Gattani — Data Analyst. Projects, dashboards, predictions, and data storytelling using Python, SQL, Excel, Power BI, and Tableau." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css" />
@@ -13,15 +13,21 @@
 </head>
 <body>
 
+  <!-- Animated Background Layer -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
   <!-- Header -->
   <header class="site-header">
-    <a href="./" class="logo">Karan<span class="highlight">Gattani</span></a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+    <a href="./" class="logo" aria-label="Karan Gattani home">Karan<span class="highlight">Gattani</span></a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-controls="nav" aria-expanded="false">
       <div class="menu-icon"></div>
     </button>
-    <nav id="nav" class="nav">
+
+    <nav id="nav" class="nav" aria-label="Primary">
       <a href="#about">About</a>
       <a href="./projects.html">Projects</a>
+      <a href="#skills">Skills</a>
       <a href="#timeline">Timeline</a>
       <a href="./playground/">Playground</a>
       <a href="./blog/">Blog</a>
@@ -30,117 +36,141 @@
   </header>
 
   <!-- Hero -->
-  <section class="hero" id="home">
+  <section class="hero" id="home" aria-labelledby="hero-title">
     <div class="hero__text">
-      <h1 class="gradient-title">Turning Data into <span>Decisions</span></h1>
-      <p class="subtitle">Hi, I’m Karan Gattani — a Data Analyst who transforms raw numbers into meaningful insights.</p>
+      <h1 id="hero-title" class="gradient-title">Turning Data into <span>Decisions</span></h1>
+      <p class="subtitle">Hi, I’m <strong>Karan Gattani</strong> — a Data Analyst who transforms raw numbers into meaningful insights.</p>
+      <ul class="hero-tags" aria-label="Core skills">
+        <li>Python</li><li>SQL</li><li>Excel</li><li>Power BI</li><li>Tableau</li>
+      </ul>
       <div class="hero__cta">
         <a class="btn btn--primary" href="./projects.html">See My Work</a>
         <a class="btn btn--ghost" href="#contact">Get in Touch</a>
       </div>
+      <div class="socials">
+        <a href="https://github.com/Karan2007May" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://linkedin.com/in/karangattani" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
     </div>
 
     <div class="hero__media">
-      <div class="dashboard-mockup">
-        <img src="assets/img/avatar.jpg" alt="Karan Gattani" class="avatar"/>
-        <div class="floating-chart chart-bar"></div>
-        <div class="floating-chart chart-pie"></div>
-        <div class="floating-chart chart-line"></div>
+      <div class="dashboard-mockup" role="img" aria-label="Data dashboard motif with avatar and charts">
+        <img src="assets/img/avatar.jpg" alt="Karan Gattani portrait" class="avatar"/>
+        <div class="floating-chart chart-bar" aria-hidden="true"></div>
+        <div class="floating-chart chart-pie" aria-hidden="true"></div>
+        <div class="floating-chart chart-line" aria-hidden="true"></div>
       </div>
+
+      <!-- Subtle SVG shapes (react on hover) -->
+      <svg class="bg-shape shape1" viewBox="0 0 600 600" aria-hidden="true">
+        <path fill="#3a86ff22" d="M300,532Q180,664,54,532Q-72,400,54,268Q180,136,300,268Q420,400,300,532Z"></path>
+      </svg>
+      <svg class="bg-shape shape2" viewBox="0 0 600 600" aria-hidden="true">
+        <path fill="#ff006e22" d="M300,540Q180,600,100,500Q20,400,100,300Q180,200,300,180Q420,160,500,250Q580,340,500,430Q420,520,300,540Z"></path>
+      </svg>
     </div>
   </section>
 
   <!-- About -->
-  <section class="section" id="about">
-    <h2 class="section__title">About Me</h2>
-    <p>I’m a passionate Data Analyst based in Bhopal, MP. I specialize in creating dashboards, building predictive models, and crafting data-driven stories. With skills in Python, SQL, Excel, Power BI, and Tableau, I thrive on turning messy datasets into clear, actionable insights.</p>
+  <section class="section" id="about" aria-labelledby="about-title">
+    <h2 class="section__title" id="about-title">About Me</h2>
+    <p>
+      I’m a detail-oriented Data Analyst based in Bhopal, MP. I build dashboards, predictive models, and data stories that drive action.
+      My toolkit: <strong>Python</strong>, <strong>SQL</strong>, <strong>Excel</strong>, <strong>Power BI</strong>, and <strong>Tableau</strong>.
+      I love turning messy datasets into clear insights that solve real business problems.
+    </p>
   </section>
 
-  <!-- Skills -->
-  <section class="section" id="skills">
-    <h2 class="section__title">Skills Overview</h2>
-    <canvas id="skillsBar"></canvas>
+  <!-- Skills (Chart.js bar chart) -->
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <h2 class="section__title" id="skills-title">Skills Overview</h2>
+    <div class="chart-wrap">
+      <canvas id="skillsBar" aria-label="Bar chart of skills" role="img"></canvas>
+    </div>
   </section>
 
-  <!-- Projects -->
-  <section class="section" id="projects">
-    <h2 class="section__title">Featured Projects</h2>
+  <!-- Projects preview -->
+  <section class="section" id="projects" aria-labelledby="projects-title">
+    <h2 class="section__title" id="projects-title">Featured Projects</h2>
     <div class="grid cards">
       <a class="card" href="project/retail-sales-analytics.html">
-        <div class="card-chart chart-small chart1"></div>
+        <div class="card-chart chart-small chart1" aria-hidden="true"></div>
         <div class="card__body">
           <h3>Retail Sales Analytics Dashboard</h3>
-          <p>Power BI dashboard with 8+ KPIs.</p>
+          <p>Power BI dashboard with 8+ KPIs and drilldowns.</p>
         </div>
       </a>
       <a class="card" href="project/customer-churn-prediction.html">
-        <div class="card-chart chart-small chart2"></div>
+        <div class="card-chart chart-small chart2" aria-hidden="true"></div>
         <div class="card__body">
           <h3>Customer Churn Prediction</h3>
-          <p>Classification pipeline & explainability.</p>
+          <p>ML classification pipeline with explainability.</p>
         </div>
       </a>
       <a class="card" href="project/pizza-runner-sql.html">
-        <div class="card-chart chart-small chart3"></div>
+        <div class="card-chart chart-small chart3" aria-hidden="true"></div>
         <div class="card__body">
           <h3>Pizza Runner SQL Case Study</h3>
-          <p>Complex queries and insights.</p>
+          <p>Advanced SQL queries and actionable insights.</p>
         </div>
       </a>
+    </div>
+    <div class="more-link">
+      <a class="btn btn--ghost" href="./projects.html" aria-label="View all projects">View all projects</a>
     </div>
   </section>
 
   <!-- Timeline -->
-  <section class="section" id="timeline">
-    <h2 class="section__title">Career Timeline</h2>
+  <section class="section" id="timeline" aria-labelledby="timeline-title">
+    <h2 class="section__title" id="timeline-title">Career Timeline</h2>
     <div class="timeline">
       <div class="tl-item left">
         <div class="tl-content">
           <time>2025</time>
           <h3>Deloitte Australia — Virtual Intern</h3>
-          <p>Developed Tableau KPI dashboards, improved Excel workflows.</p>
+          <p>Built KPI dashboards in Tableau, optimized Excel workflows (+15% efficiency).</p>
         </div>
       </div>
       <div class="tl-item right">
         <div class="tl-content">
           <time>2025</time>
           <h3>TCS — Virtual Intern</h3>
-          <p>Analyzed large datasets, delivered insights via dashboards.</p>
+          <p>Analyzed large datasets; delivered insights through visualizations and reports.</p>
         </div>
       </div>
       <div class="tl-item left">
         <div class="tl-content">
           <time>2024–2025</time>
           <h3>President — Rotaract Club</h3>
-          <p>Led 30+ members, increased participation 25%.</p>
+          <p>Led 30+ members; increased event participation by 25% with data tracking.</p>
         </div>
       </div>
       <div class="tl-item right">
         <div class="tl-content">
           <time>2023–2026</time>
           <h3>Diploma — Computer Science, RGPV</h3>
-          <p>CGPA: 8.71/10, Bhopal.</p>
+          <p>CGPA: 8.71/10 — Bhopal.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section class="section" id="contact">
-    <h2 class="section__title">Let’s work together</h2>
+  <section class="section" id="contact" aria-labelledby="contact-title">
+    <h2 class="section__title" id="contact-title">Let’s work together</h2>
     <form class="contact" name="contact" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="contact" />
       <div class="field">
         <label for="name">Name</label>
-        <input required id="name" name="name" />
+        <input required id="name" name="name" autocomplete="name" />
       </div>
       <div class="field">
         <label for="email">Email</label>
-        <input required id="email" type="email" name="email" />
+        <input required id="email" type="email" name="email" autocomplete="email" />
       </div>
       <div class="field">
         <label for="message">Message</label>
-        <textarea required id="message" name="message"></textarea>
+        <textarea required id="message" name="message" rows="5"></textarea>
       </div>
       <button class="btn btn--primary" type="submit">Send</button>
     </form>
