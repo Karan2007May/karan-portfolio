@@ -42,3 +42,12 @@ import("https://cdn.jsdelivr.net/npm/chart.js").then(({ Chart }) => {
     }
   });
 });
+// Modern menu toggle
+const menuToggle = document.getElementById("menuToggle");
+const nav = document.getElementById("nav");
+if (menuToggle) {
+  menuToggle.addEventListener("click", () => {
+    menuToggle.classList.toggle("active");
+    nav.classList.toggle("open");
+  });
+}
