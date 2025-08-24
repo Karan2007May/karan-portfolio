@@ -13,41 +13,42 @@
 </head>
 <body>
 
- <header class="site-header">
-  <a href="./" class="logo">Karan<span class="highlight">Gattani</span></a>
-  <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-    <div class="menu-icon"></div>
-  </button>
-  <nav id="nav" class="nav">
-    <a href="#about">About</a>
-    <a href="./projects.html">Projects</a>
-    <a href="#timeline">Timeline</a>
-    <a href="./playground/">Playground</a>
-    <a href="./blog/">Blog</a>
-    <a href="#contact" class="cta">Contact</a>
-  </nav>
-</header>
+  <!-- Header -->
+  <header class="site-header">
+    <a href="./" class="logo">Karan<span class="highlight">Gattani</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <div class="menu-icon"></div>
+    </button>
+    <nav id="nav" class="nav">
+      <a href="#about">About</a>
+      <a href="./projects.html">Projects</a>
+      <a href="#timeline">Timeline</a>
+      <a href="./playground/">Playground</a>
+      <a href="./blog/">Blog</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+  </header>
 
-<section class="hero" id="home">
-  <div class="hero__text">
-    <h1 class="gradient-title">Turning Data into <span>Decisions</span></h1>
-    <p class="subtitle">Hi, I’m Karan Gattani — a Data Analyst who transforms raw numbers into meaningful insights.</p>
-    <div class="hero__cta">
-      <a class="btn btn--primary" href="./projects.html">See My Work</a>
-      <a class="btn btn--ghost" href="#contact">Get in Touch</a>
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero__text">
+      <h1 class="gradient-title">Turning Data into <span>Decisions</span></h1>
+      <p class="subtitle">Hi, I’m Karan Gattani — a Data Analyst who transforms raw numbers into meaningful insights.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="./projects.html">See My Work</a>
+        <a class="btn btn--ghost" href="#contact">Get in Touch</a>
+      </div>
     </div>
-  </div>
 
-  <div class="hero__media">
-    <div class="dashboard-mockup">
-      <img src="assets/img/avatar.jpg" alt="Karan Gattani" class="avatar"/>
-      <div class="floating-chart chart-bar"></div>
-      <div class="floating-chart chart-pie"></div>
-      <div class="floating-chart chart-line"></div>
+    <div class="hero__media">
+      <div class="dashboard-mockup">
+        <img src="assets/img/avatar.jpg" alt="Karan Gattani" class="avatar"/>
+        <div class="floating-chart chart-bar"></div>
+        <div class="floating-chart chart-pie"></div>
+        <div class="floating-chart chart-line"></div>
+      </div>
     </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- About -->
   <section class="section" id="about">
@@ -57,39 +58,30 @@
 
   <!-- Skills -->
   <section class="section" id="skills">
-    <h2 class="section__title">Skills</h2>
-    <ul class="skills">
-      <li><i class="fa-brands fa-python"></i> Python</li>
-      <li><i class="fa-solid fa-database"></i> SQL</li>
-      <li><i class="fa-solid fa-table"></i> Excel</li>
-      <li><i class="fa-solid fa-chart-bar"></i> Power BI</li>
-      <li><i class="fa-solid fa-chart-pie"></i> Tableau</li>
-      <li><i class="fa-solid fa-code-branch"></i> ETL</li>
-      <li><i class="fa-solid fa-diagram-project"></i> Data Modeling</li>
-      <li><i class="fa-solid fa-bullseye"></i> KPI Reporting</li>
-    </ul>
+    <h2 class="section__title">Skills Overview</h2>
+    <canvas id="skillsBar"></canvas>
   </section>
 
-  <!-- Projects Preview -->
+  <!-- Projects -->
   <section class="section" id="projects">
     <h2 class="section__title">Featured Projects</h2>
     <div class="grid cards">
       <a class="card" href="project/retail-sales-analytics.html">
-        <img src="assets/img/projects/retail-sales.jpg" alt="Retail Sales Dashboard">
+        <div class="card-chart chart-small chart1"></div>
         <div class="card__body">
           <h3>Retail Sales Analytics Dashboard</h3>
           <p>Power BI dashboard with 8+ KPIs.</p>
         </div>
       </a>
       <a class="card" href="project/customer-churn-prediction.html">
-        <img src="assets/img/projects/churn.jpg" alt="Customer Churn Prediction">
+        <div class="card-chart chart-small chart2"></div>
         <div class="card__body">
           <h3>Customer Churn Prediction</h3>
           <p>Classification pipeline & explainability.</p>
         </div>
       </a>
       <a class="card" href="project/pizza-runner-sql.html">
-        <img src="assets/img/projects/pizza.jpg" alt="Pizza Runner SQL Case Study">
+        <div class="card-chart chart-small chart3"></div>
         <div class="card__body">
           <h3>Pizza Runner SQL Case Study</h3>
           <p>Complex queries and insights.</p>
@@ -100,34 +92,30 @@
 
   <!-- Timeline -->
   <section class="section" id="timeline">
-    <h2 class="section__title">Timeline</h2>
+    <h2 class="section__title">Career Timeline</h2>
     <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-icon"><i class="fa-solid fa-briefcase"></i></div>
+      <div class="tl-item left">
         <div class="tl-content">
           <time>2025</time>
           <h3>Deloitte Australia — Virtual Intern</h3>
-          <p>Developed KPI dashboards in Tableau, improved data workflows in Excel by 15%.</p>
+          <p>Developed Tableau KPI dashboards, improved Excel workflows.</p>
         </div>
       </div>
-      <div class="tl-item">
-        <div class="tl-icon"><i class="fa-solid fa-briefcase"></i></div>
+      <div class="tl-item right">
         <div class="tl-content">
           <time>2025</time>
           <h3>TCS — Virtual Intern</h3>
-          <p>Analyzed large datasets, delivered insights through visualizations and reports.</p>
+          <p>Analyzed large datasets, delivered insights via dashboards.</p>
         </div>
       </div>
-      <div class="tl-item">
-        <div class="tl-icon"><i class="fa-solid fa-users"></i></div>
+      <div class="tl-item left">
         <div class="tl-content">
           <time>2024–2025</time>
           <h3>President — Rotaract Club</h3>
-          <p>Led 30+ members, improved event participation by 25%, implemented data tracking.</p>
+          <p>Led 30+ members, increased participation 25%.</p>
         </div>
       </div>
-      <div class="tl-item">
-        <div class="tl-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="tl-item right">
         <div class="tl-content">
           <time>2023–2026</time>
           <h3>Diploma — Computer Science, RGPV</h3>
