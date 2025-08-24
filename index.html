@@ -4,32 +4,26 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Karan Gattani — Data Analyst Portfolio</title>
-  <meta name="description" content="Data Analyst portfolio of Karan Gattani — Python, SQL, Excel, Power BI, Tableau. Dashboards, analytics, predictive modeling, and data storytelling." />
+  <meta name="description" content="Portfolio of Karan Gattani — Data Analyst skilled in Python, SQL, Excel, Power BI, Tableau. Explore projects, timeline, blog, and contact." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="icon" href="favicon.ico" />
-  <!-- Icons -->
+  <!-- Font Awesome Icons -->
   <script defer src="https://kit.fontawesome.com/7a9e0a4c5e.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <!-- Global glow & particles -->
-  <div class="neon-bg" aria-hidden="true"></div>
-  <canvas id="particles" aria-hidden="true"></canvas>
-
-  <!-- Header / Nav -->
+  <!-- Header -->
   <header class="site-header">
-    <a href="./" class="logo">KG<span class="spark">.</span></a>
+    <a href="./" class="logo">KG<span class="dot">.</span></a>
     <nav id="nav" class="nav">
-      <a href="./#about">About</a>
+      <a href="#about">About</a>
       <a href="./projects.html">Projects</a>
-      <a href="./#timeline">Timeline</a>
+      <a href="#timeline">Timeline</a>
       <a href="./playground/">Playground</a>
       <a href="./blog/">Blog</a>
-      <a href="./#faq">FAQ</a>
-      <a href="./#contact" class="cta">Contact</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fa-regular fa-lightbulb"></i></button>
+      <a href="#contact" class="cta">Contact</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="nav" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -39,89 +33,69 @@
   <!-- Hero -->
   <section class="hero" id="home">
     <div class="hero__text">
-      <h1 class="neon-title">Hi, I'm <span>Karan Gattani</span></h1>
+      <h1 class="gradient-title">Hi, I'm <span>Karan Gattani</span></h1>
       <p class="subtitle">Data Analyst • Python · SQL · Excel · Power BI · Tableau</p>
-      <p class="tagline">I turn messy data into crisp decisions — dashboards, analytics, and predictive insights with a dash of playfulness.</p>
+      <p class="tagline">I transform data into insights through dashboards, analytics, and predictive models that help businesses grow.</p>
       <div class="hero__cta">
         <a class="btn btn--primary" href="./projects.html">Explore Projects</a>
         <a class="btn btn--ghost" href="#contact">Hire Me</a>
-      </div>
-      <div class="hero__meta">
-        <a href="mailto:karangattani07@gmail.com"><i class="fa-solid fa-envelope"></i> karangattani07@gmail.com</a>
-        <a href="tel:+918118866943"><i class="fa-solid fa-phone"></i> +91 81188 66943</a>
-        <span><i class="fa-solid fa-location-dot"></i> Bhopal, MP</span>
-      </div>
-      <div class="socials">
-        <a aria-label="GitHub" href="https://github.com/Karan2007May" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i></a>
-        <a aria-label="LinkedIn" href="https://www.linkedin.com/in/karangattani" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i></a>
-        <a aria-label="Portfolio (this site)" href="https://karan2007may.github.io/karan-portfolio" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i></a>
       </div>
     </div>
 
     <div class="hero__media">
       <div class="avatar-wrap">
         <img src="assets/img/avatar.jpg" alt="Portrait of Karan Gattani" />
-        <div class="ring ring--1"></div>
-        <div class="ring ring--2"></div>
-        <div class="ring ring--3"></div>
       </div>
-      <!-- Playful doodle-face canvas -->
-      <div class="doodle">
-        <canvas id="doodleCanvas" width="360" height="220" aria-label="Draw on my mood face"></canvas>
-        <div class="doodle__hint">Draw on the face to set my mood 🎨</div>
-        <button id="clearDoodle" class="btn btn--mini">Clear</button>
+      <div class="skills-chart">
+        <canvas id="skillsRadar"></canvas>
       </div>
     </div>
   </section>
 
-  <!-- Skills (neon chips) -->
-  <section class="section" id="skills" aria-labelledby="skills-title">
-    <h2 id="skills-title" class="section__title">Skills</h2>
+  <!-- Skills -->
+  <section class="section" id="skills">
+    <h2 class="section__title">Skills</h2>
     <ul class="skills">
-      <li>Python (Pandas, NumPy, Matplotlib, Seaborn)</li>
-      <li>SQL (Joins, CTEs, Window Functions)</li>
+      <li>Python</li>
+      <li>SQL</li>
       <li>Power BI</li>
       <li>Tableau</li>
-      <li>Excel (Pivot Tables, VLOOKUP, Charts)</li>
-      <li>ETL · Data Modeling · KPI Reporting</li>
-      <li>Git & GitHub</li>
-      <li>GenAI</li>
+      <li>Excel</li>
+      <li>Data Modeling</li>
+      <li>ETL</li>
+      <li>KPI Reporting</li>
     </ul>
   </section>
 
-  <!-- Projects preview -->
+  <!-- Projects Preview -->
   <section class="section" id="projects">
     <h2 class="section__title">Featured Projects</h2>
-    <p class="section__tagline">Peek at a few — then dive deeper on the Projects page.</p>
     <div class="grid cards">
       <a class="card" href="project/retail-sales-analytics.html">
-        <img src="assets/img/projects/retail-sales.jpg" alt="Retail Sales dashboard" />
+        <img src="assets/img/projects/retail-sales.jpg" alt="Retail Sales Dashboard">
         <div class="card__body">
           <h3>Retail Sales Analytics Dashboard</h3>
-          <p>Power BI dashboard with 8+ KPIs & automations.</p>
+          <p>Power BI dashboard with 8+ KPIs.</p>
         </div>
       </a>
       <a class="card" href="project/customer-churn-prediction.html">
-        <img src="assets/img/projects/churn.jpg" alt="Customer churn model" />
+        <img src="assets/img/projects/churn.jpg" alt="Customer Churn Prediction">
         <div class="card__body">
           <h3>Customer Churn Prediction</h3>
           <p>Classification pipeline & explainability.</p>
         </div>
       </a>
       <a class="card" href="project/pizza-runner-sql.html">
-        <img src="assets/img/projects/pizza.jpg" alt="Pizza Runner SQL case study" />
+        <img src="assets/img/projects/pizza.jpg" alt="Pizza Runner SQL Case Study">
         <div class="card__body">
           <h3>Pizza Runner SQL Case Study</h3>
-          <p>Complex queries, window functions, insights.</p>
+          <p>Complex queries and insights.</p>
         </div>
       </a>
     </div>
-    <div class="section__actions">
-      <a class="btn btn--ghost" href="projects.html">See all 9 projects</a>
-    </div>
   </section>
 
-  <!-- Timeline preview -->
+  <!-- Timeline -->
   <section class="section" id="timeline">
     <h2 class="section__title">Timeline</h2>
     <div class="timeline">
@@ -129,73 +103,27 @@
         <div class="tl-dot"></div>
         <div class="tl-content">
           <time>2025</time>
-          <h3>Deloitte Australia (Forage) — Virtual Intern</h3>
-          <p>Built Tableau KPI dashboards; improved Excel data cleaning accuracy by 15%.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <time>2025</time>
-          <h3>TCS (Forage) — Virtual Intern</h3>
-          <p>Analyzed datasets and delivered stakeholder-ready reports.</p>
+          <h3>Deloitte Australia (Virtual Internship)</h3>
+          <p>Built Tableau KPI dashboards, improved Excel workflows.</p>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-content">
           <time>2024–2025</time>
-          <h3>President — Rotaract Club of MPU</h3>
-          <p>Led 30+ members, boosted event participation ~25%; built tracking in Sheets.</p>
+          <h3>President — Rotaract Club</h3>
+          <p>Led 30+ members, increased participation 25%.</p>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-content">
           <time>2023–2026</time>
-          <h3>Diploma — Computer Science, RGPV University</h3>
+          <h3>Diploma — Computer Science, RGPV</h3>
           <p>CGPA: 8.71/10, Bhopal.</p>
         </div>
       </div>
     </div>
-    <p class="tl-note">See the full interactive timeline soon with filters for Education, Work, Leadership.</p>
-  </section>
-
-  <!-- Blog teaser -->
-  <section class="section" id="blog">
-    <h2 class="section__title">Latest from the Blog</h2>
-    <div class="grid cards cards--mini">
-      <a class="card" href="blog/posts/sample-post.html">
-        <div class="card__body">
-          <h3>How I Design KPIs for Clarity</h3>
-          <p>Simple frameworks I use to extract real business value from data.</p>
-          <span class="pill">3 min read</span>
-        </div>
-      </a>
-      <a class="card" href="blog/">
-        <div class="card__body">
-          <h3>Visit the Blog</h3>
-          <p>Analytics, dashboards, SQL tips, and data storytelling.</p>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- FAQ (to reduce repetitive questions) -->
-  <section class="section" id="faq">
-    <h2 class="section__title">FAQ</h2>
-    <details class="faq">
-      <summary>What’s your working process?</summary>
-      <p>Discover → Define KPIs → Prepare data & model → Visualize & iterate → Document & handoff. I communicate weekly with async updates and a demo at each milestone.</p>
-    </details>
-    <details class="faq">
-      <summary>How do you handle payments?</summary>
-      <p>For freelance work: 30% upfront, 40% mid-milestone, 30% on delivery. For retainers, monthly billing with clear scope.</p>
-    </details>
-    <details class="faq">
-      <summary>What are your communication preferences?</summary>
-      <p>Email for summaries, WhatsApp for quick alignment, and a weekly video check-in. I’m flexible to your tools (Slack, Teams, Meet).</p>
-    </details>
   </section>
 
   <!-- Contact -->
@@ -205,31 +133,26 @@
       <input type="hidden" name="form-name" value="contact" />
       <div class="field">
         <label for="name">Name</label>
-        <input required id="name" name="name" placeholder="Your name" />
+        <input required id="name" name="name" />
       </div>
       <div class="field">
         <label for="email">Email</label>
-        <input required id="email" type="email" name="email" placeholder="you@example.com" />
+        <input required id="email" type="email" name="email" />
       </div>
       <div class="field">
-        <label for="message">Project Brief</label>
-        <textarea required id="message" name="message" rows="5" placeholder="Tell me about your goals..."></textarea>
+        <label for="message">Message</label>
+        <textarea required id="message" name="message"></textarea>
       </div>
       <button class="btn btn--primary" type="submit">Send</button>
-      <p class="contact__alt">
-        Or reach me at <a href="mailto:karangattani07@gmail.com">karangattani07@gmail.com</a> · <a href="tel:+918118866943">+91 81188 66943</a>
-      </p>
     </form>
   </section>
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="footer__brand">© <span id="year"></span> Karan Gattani</div>
+    <p>© <span id="year"></span> Karan Gattani</p>
     <div class="footer__links">
-      <a href="https://github.com/Karan2007May" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/karangattani" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="./blog/">Blog</a>
-      <a href="./projects.html">Projects</a>
+      <a href="https://github.com/Karan2007May" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/karangattani" target="_blank">LinkedIn</a>
     </div>
   </footer>
 
