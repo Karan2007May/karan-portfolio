@@ -4,64 +4,71 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Karan Gattani</title>
-  <meta name="description" content="Projects by Karan Gattani: dashboards, ML models, SQL case studies, and analytics apps." />
-  <link rel="stylesheet" href="./assets/css/style.css" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <script defer src="./assets/js/utils.js"></script>
-  <script defer src="./assets/js/projects.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <canvas id="bgCanvas"></canvas>
 
   <header class="site-header">
-    <a class="brand" href="./"><span class="brand-logo">KG</span><span class="brand-text">Karan Gattani</span></a>
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav id="site-nav" class="site-nav" role="navigation">
-      <a href="./index.html">Home</a>
-      <a href="./projects.html" class="active">Projects</a>
-      <a href="./timeline.html">Timeline</a>
-      <a href="./playground.html">Playground</a>
+    <a href="./" class="logo">Karan<span class="highlight">Gattani</span></a>
+    <button class="menu-toggle" id="menuToggle"><div class="menu-icon"></div></button>
+    <nav id="nav" class="nav">
+      <a href="./">Home</a>
+      <a href="./projects.html">Projects</a>
+      <a href="./#skills">Skills</a>
+      <a href="./#timeline">Timeline</a>
+      <a href="./playground/">Playground</a>
       <a href="./blog/">Blog</a>
-      <a href="./about.html">About</a>
-      <a href="./contact.html">Contact</a>
+      <a href="./#contact" class="cta">Contact</a>
     </nav>
   </header>
 
-  <main class="container section">
-    <h1 class="section-title">Projects</h1>
-
-    <div class="card" style="gap:14px">
-      <div style="display:grid; gap:12px; grid-template-columns: 1fr 160px;">
-        <input id="search" type="search" placeholder="Search by title, stack, or tag…" aria-label="Search projects" />
-        <select id="sort">
-          <option value="featured">Sort: Featured</option>
-          <option value="az">Sort: A → Z</option>
-          <option value="za">Sort: Z → A</option>
-        </select>
-      </div>
-      <div id="tag-row" class="chipset" aria-label="Filter by tag"></div>
+  <main class="section">
+    <h1 class="section__title">My Projects</h1>
+    <div class="grid project-gallery">
+      <a class="proj-card" href="project/retail-sales-analytics.html">
+        <img src="assets/img/projects/retail-sales.jpg" alt="Retail Sales Analytics Dashboard thumbnail" />
+        <h3>Retail Sales Analytics Dashboard</h3>
+      </a>
+      <a class="proj-card" href="project/customer-churn-prediction.html">
+        <img src="assets/img/projects/customer-churn.jpg" alt="Customer Churn Prediction thumbnail" />
+        <h3>Customer Churn Prediction</h3>
+      </a>
+      <a class="proj-card" href="project/pizza-runner-sql.html">
+        <img src="assets/img/projects/pizza-runner.jpg" alt="Pizza Runner SQL Case Study thumbnail" />
+        <h3>Pizza Runner SQL Case Study</h3>
+      </a>
+      <a class="proj-card" href="project/hr-analytics.html">
+        <img src="assets/img/projects/hr-analytics.jpg" alt="HR Analytics Dashboard thumbnail" />
+        <h3>HR Analytics Dashboard</h3>
+      </a>
+      <a class="proj-card" href="project/sales-forecasting.html">
+        <img src="assets/img/projects/sales-forecasting.jpg" alt="Sales Forecasting with Time Series thumbnail" />
+        <h3>Sales Forecasting with Time Series</h3>
+      </a>
+      <a class="proj-card" href="project/loan-default.html">
+        <img src="assets/img/projects/loan-default.jpg" alt="Loan Default Prediction thumbnail" />
+        <h3>Loan Default Prediction</h3>
+      </a>
+      <a class="proj-card" href="project/customer-segmentation.html">
+        <img src="assets/img/projects/customer-segmentation.jpg" alt="Customer Segmentation thumbnail" />
+        <h3>Customer Segmentation</h3>
+      </a>
+      <a class="proj-card" href="project/healthcare-analytics.html">
+        <img src="assets/img/projects/healthcare.jpg" alt="Healthcare Data Analytics thumbnail" />
+        <h3>Healthcare Data Analytics</h3>
+      </a>
+      <a class="proj-card" href="project/marketing-campaign.html">
+        <img src="assets/img/projects/marketing-campaign.jpg" alt="Marketing Campaign Effectiveness thumbnail" />
+        <h3>Marketing Campaign Effectiveness</h3>
+      </a>
     </div>
-
-    <div id="projects-grid" class="grid" style="margin-top:16px"></div>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Karan Gattani — Data Analyst</p>
-      <div class="footer-links">
-        <a href="./about.html">About</a>
-        <a href="./contact.html">Contact</a>
-        <a href="./blog/">Blog</a>
-      </div>
-    </div>
+    <p>© <span id="year"></span> Karan Gattani</p>
   </footer>
 
-  <script>
-    // reuse hamburger + year without duplicating main.js’s other features
-    const $ = (q,c=document)=>c.querySelector(q);
-    const $$ = (q,c=document)=>Array.from(c.querySelectorAll(q));
-    const hamburger=$("#hamburger"),nav=$("#site-nav"); if(hamburger){hamburger.onclick=()=>{const o=nav.classList.toggle("open");hamburger.setAttribute("aria-expanded",o?"true":"false");}; $$("#site-nav a").forEach(a=>a.onclick=()=>nav.classList.remove("open"));} const y=$("#year"); if(y) y.textContent=new Date().getFullYear();
-  </script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
