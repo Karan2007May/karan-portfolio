@@ -170,3 +170,11 @@ body{
 
 /* Focus visibility */
 :focus-visible{ outline: 2px solid var(--neon-cyan); outline-offset: 2px; border-radius: 6px; }
+
+input[type="search"], select{
+  background: rgba(255,255,255,.06); color: var(--text);
+  border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:10px 12px; font:inherit;
+}
+.chip{ background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); padding:8px 12px; border-radius:999px; font-weight:700; cursor:pointer; }
+.chip.active, .chip:hover{ background: rgba(0,234,255,.15); border-color: rgba(0,234,255,.4); }
+
