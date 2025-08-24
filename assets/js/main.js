@@ -1,174 +1,129 @@
-/* ========= Basic helpers ========= */
-const $ = (q, c = document) => c.querySelector(q);
-const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
+// Util
+const $ = (q, s=document) => s.querySelector(q);
+const $$ = (q, s=document) => [...s.querySelectorAll(q)];
 
-/* ========= Header: hamburger ========= */
-const hamburger = $("#hamburger");
-const nav = $("#site-nav");
+// Mobile nav
+const hamburger = $('#hamburger');
+const nav = $('#nav');
 if (hamburger) {
-  hamburger.addEventListener("click", () => {
-    const isOpen = nav.classList.toggle("open");
-    hamburger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  hamburger.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!expanded));
+    nav.classList.toggle('open');
   });
-  // close on nav click (mobile)
-  $$("#site-nav a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
+  // Close on link click
+  $$('#nav a').forEach(a => a.addEventListener('click', ()=> {
+    nav.classList.remove('open'); hamburger.setAttribute('aria-expanded','false');
+  }));
 }
 
-/* ========= Footer year ========= */
-const y = $("#year");
-if (y) y.textContent = new Date().getFullYear();
+// Year in footer
+const year = $('#year');
+if (year) year.textContent = new Date().getFullYear();
 
-/* ========= Animated neon blobs background ========= */
-(function bg() {
-  const canvas = document.getElementById("bg-canvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  let width, height, dpr;
+// Theme toggle (soft – keeps neon)
+const themeToggle = $('#themeToggle');
+let dark = true;
+if (themeToggle){
+  themeToggle.addEventListener('click', ()=>{
+    dark = !dark;
+    document.documentElement.style.setProperty('--bg', dark ? '#0b0e12' : '#f6f8fb');
+    document.documentElement.style.setProperty('--text', dark ? '#e9edf3' : '#0b0e12');
+    document.documentElement.style.setProperty('--card', dark ? '#121720' : '#ffffff');
+  });
+}
 
-  const blobs = Array.from({ length: 18 }).map((_, i) => ({
-    x: Math.random(), y: Math.random(),
-    r: 120 + Math.random() * 160,
-    vx: (Math.random() - .5) * 0.05,
-    vy: (Math.random() - .5) * 0.05,
-    hue: Math.random() * 360
-  }));
+// Particles background
+(function particles(){
+  const c = $('#particles');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  let w, h, dots;
 
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = canvas.clientWidth = window.innerWidth;
-    height = canvas.clientHeight = window.innerHeight;
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    ctx.scale(dpr, dpr);
+  function reset(){
+    w = c.width = innerWidth * DPR;
+    h = c.height = innerHeight * DPR;
+    c.style.width = innerWidth + 'px';
+    c.style.height = innerHeight + 'px';
+    dots = new Array(60).fill(0).map(()=>({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      vx: (Math.random()-.5)*.3*DPR,
+      vy: (Math.random()-.5)*.3*DPR
+    }));
   }
-  window.addEventListener("resize", resize);
-  resize();
-
-  function step() {
-    ctx.clearRect(0, 0, width, height);
-    blobs.forEach(b => {
-      b.x += b.vx; b.y += b.vy;
-      if (b.x < 0 || b.x > 1) b.vx *= -1;
-      if (b.y < 0 || b.y > 1) b.vy *= -1;
-
-      const grad = ctx.createRadialGradient(b.x*width, b.y*height, 0, b.x*width, b.y*height, b.r);
-      grad.addColorStop(0, `hsla(${b.hue}, 100%, 60%, .18)`);
-      grad.addColorStop(1, `hsla(${(b.hue+180)%360}, 100%, 50%, 0)`);
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(b.x*width, b.y*height, b.r, 0, Math.PI*2);
-      ctx.fill();
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    ctx.globalAlpha = .8;
+    dots.forEach(d=>{
+      d.x+=d.vx; d.y+=d.vy;
+      if (d.x<0||d.x>w) d.vx*=-1;
+      if (d.y<0||d.y>h) d.vy*=-1;
+      ctx.fillStyle = ['#00e5ff33','#57f28733','#ff4dff33'][Math.floor(Math.random()*3)];
+      ctx.beginPath(); ctx.arc(d.x,d.y,1.2*DPR,0,Math.PI*2); ctx.fill();
     });
-    requestAnimationFrame(step);
+    requestAnimationFrame(draw);
   }
-  step();
+  reset(); draw();
+  addEventListener('resize', reset);
 })();
 
-/* ========= Face: draw on me ========= */
-(function face() {
-  const c = document.getElementById("face-canvas");
-  if (!c) return;
-  const ctx = c.getContext("2d");
-  const W = c.width, H = c.height;
+// Wobble rings on mouse
+(function wobble(){
+  const wrap = document.querySelector('.avatar-wrap');
+  if (!wrap) return;
+  wrap.addEventListener('mousemove', (e)=>{
+    const r = wrap.getBoundingClientRect();
+    const dx = ((e.clientX - r.left)/r.width - .5)*8;
+    const dy = ((e.clientY - r.top)/r.height - .5)*8;
+    wrap.style.transform = `rotateX(${-dy}deg) rotateY(${dx}deg)`;
+  });
+  wrap.addEventListener('mouseleave', ()=> wrap.style.transform = 'none');
+})();
 
-  function base() {
+// Doodle-face: playful drawing miniapp
+(function doodle(){
+  const cvs = $('#doodleCanvas');
+  if (!cvs) return;
+  const ctx = cvs.getContext('2d');
+  const W = cvs.width, H = cvs.height;
+
+  // base face
+  function base(){
     ctx.clearRect(0,0,W,H);
-    // head
-    ctx.fillStyle = "#0b1224";
-    ctx.strokeStyle = "#0ff";
-    ctx.lineWidth = 6;
-    ctx.beginPath(); ctx.arc(W/2, H/2, 120, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-    // eyes
-    ctx.fillStyle = "#fff";
-    ctx.beginPath(); ctx.arc(W/2-40, H/2-20, 16, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(W/2+40, H/2-20, 16, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = "#0ff";
-    ctx.beginPath(); ctx.arc(W/2-40, H/2-20, 6, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(W/2+40, H/2-20, 6, 0, Math.PI*2); ctx.fill();
-    // smile
-    ctx.strokeStyle = "#ff4bd8";
-    ctx.lineWidth = 5; ctx.lineCap="round";
-    ctx.beginPath();
-    ctx.arc(W/2, H/2+20, 60, 0.15*Math.PI, 0.85*Math.PI);
-    ctx.stroke();
+    ctx.fillStyle = '#0e141c';
+    ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = '#0b0e12';
+    ctx.fillRect(8,8,W-16,H-16);
+    // face circle
+    ctx.strokeStyle = '#00e5ff';
+    ctx.lineWidth = 2;
+    ctx.shadowColor = '#00e5ff';
+    ctx.shadowBlur = 10;
+    ctx.beginPath(); ctx.arc(W/2, H/2, 70, 0, Math.PI*2); ctx.stroke();
+    ctx.shadowBlur = 0;
+    // default eyes
+    ctx.fillStyle = '#57f287';
+    ctx.beginPath(); ctx.arc(W/2-25, H/2-10, 6, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(W/2+25, H/2-10, 6, 0, Math.PI*2); ctx.fill();
+    // neutral mouth
+    ctx.strokeStyle = '#ff4dff';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(W/2-25, H/2+20); ctx.lineTo(W/2+25, H/2+20); ctx.stroke();
   }
   base();
 
-  let drawing = false, lastX=0, lastY=0;
-  function pos(e){
-    const rect = c.getBoundingClientRect();
-    const x = (e.touches?e.touches[0].clientX:e.clientX) - rect.left;
-    const y = (e.touches?e.touches[0].clientY:e.clientY) - rect.top;
-    return {x: x * (c.width/rect.width), y: y * (c.height/rect.height)};
-  }
-  function start(e){ drawing=true; ({x:lastX,y:lastY}=pos(e)); }
-  function move(e){
+  // draw freehand
+  let drawing=false, px=0, py=0;
+  cvs.addEventListener('pointerdown', e=>{ drawing=true; [px,py]=[e.offsetX,e.offsetY]; });
+  cvs.addEventListener('pointermove', e=>{
     if(!drawing) return;
-    e.preventDefault();
-    const {x,y} = pos(e);
-    ctx.strokeStyle = "rgba(0,234,255,.9)";
-    ctx.lineWidth = 4; ctx.lineCap = "round";
-    ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
-    lastX=x; lastY=y;
-  }
-  function end(){ drawing=false; }
-  c.addEventListener("mousedown", start);
-  c.addEventListener("mousemove", move);
-  window.addEventListener("mouseup", end);
-  c.addEventListener("touchstart", start, {passive:false});
-  c.addEventListener("touchmove", move, {passive:false});
-  window.addEventListener("touchend", end);
-  c.addEventListener("dblclick", base);
-})();
-
-/* ========= Projects preview loader ========= */
-(async function projectsPreview(){
-  const grid = document.getElementById("projects-grid");
-  if (!grid) return;
-
-  let projects = [];
-  try {
-    const res = await fetch("./assets/data/projects.json", {cache:"no-store"});
-    projects = await res.json();
-  } catch(e){
-    console.warn("projects.json missing; using fallback.", e);
-    projects = [];
-  }
-
-  const featured = projects.slice(0, 6);
-  if (featured.length === 0){
-    grid.innerHTML = `<p class="meta">No projects loaded yet. We’ll add them soon.</p>`;
-    return;
-  }
-
-  grid.innerHTML = featured.map(p => {
-    const thumb = p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.title} thumbnail">`
-      : `<div class="thumb" style="background:linear-gradient(135deg, #0ff33 0%, #7d5aff 100%);"></div>`;
-    const tags = (p.tags||[]).slice(0,3).map(t=>`<span class="meta">#${t}</span>`).join(" ");
-    return `
-      <article class="card">
-        <a href="${p.url || ('./projects/' + p.slug + '.html')}">${thumb}</a>
-        <h3 class="title"><a href="${p.url || ('./projects/' + p.slug + '.html')}">${p.title}</a></h3>
-        <div class="meta">${p.stack || ""}</div>
-        <p class="meta">${p.summary || ""}</p>
-        <div>${tags}</div>
-      </article>
-    `;
-  }).join("");
-})();
-
-/* ========= Quiz ========= */
-(function quiz(){
-  const form = document.getElementById("quiz");
-  if (!form) return;
-  const result = document.getElementById("quiz-result");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const a1 = form.q1.value === "line";
-    const a2 = form.q2.value === "having";
-    const a3 = form.q3.value === "better";
-    const score = [a1,a2,a3].filter(Boolean).length;
-    const msgs = ["Keep going! 🌱","Nice! 🔥","Pro level! 🚀","Flawless! 🏆"];
-    result.textContent = `${score}/3 — ${msgs[score] || msgs[0]}`;
+    ctx.strokeStyle = ['#00e5ff','#57f287','#ff4dff'][Math.floor(Math.random()*3)];
+    ctx.lineWidth = 2.5; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(e.offsetX,e.offsetY); ctx.stroke();
+    [px,py]=[e.offsetX,e.offsetY];
   });
+  addEventListener('pointerup', ()=> drawing=false);
+  $('#clearDoodle')?.addEventListener('click', base);
 })();
