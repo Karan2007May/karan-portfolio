@@ -13,48 +13,41 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header">
-    <a href="./" class="logo">KG<span class="dot">.</span></a>
-    <nav id="nav" class="nav">
-      <a href="#about">About</a>
-      <a href="./projects.html">Projects</a>
-      <a href="#timeline">Timeline</a>
-      <a href="./playground/">Playground</a>
-      <a href="./blog/">Blog</a>
-      <a href="#contact" class="cta">Contact</a>
-    </nav>
-    <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="nav" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+ <header class="site-header">
+  <a href="./" class="logo">Karan<span class="highlight">Gattani</span></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+    <div class="menu-icon"></div>
+  </button>
+  <nav id="nav" class="nav">
+    <a href="#about">About</a>
+    <a href="./projects.html">Projects</a>
+    <a href="#timeline">Timeline</a>
+    <a href="./playground/">Playground</a>
+    <a href="./blog/">Blog</a>
+    <a href="#contact" class="cta">Contact</a>
+  </nav>
+</header>
 
-  <!-- Hero -->
-  <section class="hero" id="home">
-    <div class="hero__text">
-      <h1 class="gradient-title">Hi, I'm <span>Karan Gattani</span></h1>
-      <p class="subtitle">Data Analyst • Python · SQL · Excel · Power BI · Tableau</p>
-      <p class="tagline">Detail-oriented Data Analyst skilled in extracting insights, building dashboards, and solving business problems with data.</p>
-      <div class="hero__cta">
-        <a class="btn btn--primary" href="./projects.html">Explore Projects</a>
-        <a class="btn btn--ghost" href="#contact">Hire Me</a>
-      </div>
-      <div class="socials">
-        <a href="https://github.com/Karan2007May" target="_blank"><i class="fa-brands fa-github"></i></a>
-        <a href="https://linkedin.com/in/karangattani" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-      </div>
+<section class="hero" id="home">
+  <div class="hero__text">
+    <h1 class="gradient-title">Turning Data into <span>Decisions</span></h1>
+    <p class="subtitle">Hi, I’m Karan Gattani — a Data Analyst who transforms raw numbers into meaningful insights.</p>
+    <div class="hero__cta">
+      <a class="btn btn--primary" href="./projects.html">See My Work</a>
+      <a class="btn btn--ghost" href="#contact">Get in Touch</a>
     </div>
+  </div>
 
-    <div class="hero__media">
-      <div class="avatar-wrap">
-        <div class="blob"></div>
-        <img src="assets/img/avatar.jpg" alt="Portrait of Karan Gattani" />
-      </div>
-      <div class="skills-chart">
-        <canvas id="skillsRadar"></canvas>
-      </div>
+  <div class="hero__media">
+    <div class="dashboard-mockup">
+      <img src="assets/img/avatar.jpg" alt="Karan Gattani" class="avatar"/>
+      <div class="floating-chart chart-bar"></div>
+      <div class="floating-chart chart-pie"></div>
+      <div class="floating-chart chart-line"></div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- About -->
   <section class="section" id="about">
