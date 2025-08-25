@@ -65,21 +65,45 @@ a:focus, button:focus, input:focus, textarea:focus{
 .menu-toggle.active .menu-icon::after{transform:rotate(-45deg) translate(3px,-3px)}
 
 /* Nav */
-.nav{display:flex; gap:16px; align-items:center}
-.nav a{color:var(--muted); text-decoration:none; font-weight:500}
-.nav a:hover{color:var(--primary)}
-.nav .cta{padding:8px 12px; border-radius:999px; background:var(--primary); color:#fff}
+.nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+.nav a:hover { color: var(--primary); }
+.nav .cta {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+}
 
 /* Mobile nav overlay */
-@media (max-width: 900px){
-  .nav{
-    position:fixed; right:20px; top:70px;
-    background:#fff; border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,.12);
-    padding:14px; flex-direction:column; align-items:flex-start; display:none; z-index:30;
-    width:min(86vw,320px)
+.menu-toggle { display: none; } /* hide toggle by default */
+@media (max-width: 900px) {
+  .menu-toggle { display: flex; } /* show hamburger */
+  .nav {
+    position: fixed;
+    right: 20px;
+    top: 70px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.12);
+    padding: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    display: none;
+    z-index: 30;
+    width: min(86vw, 320px);
   }
-  .nav.open{display:flex}
+  .nav.open { display: flex; }
 }
+
 
 /* Hero */
 .hero{
@@ -213,3 +237,27 @@ a:focus, button:focus, input:focus, textarea:focus{
   box-shadow: 0 12px 26px rgba(0,0,0,.1);
 }
 
+.chart-bar {
+  width: 90px; height: 64px;
+  background: repeating-linear-gradient(
+    to top,
+    var(--primary), var(--primary) 12px,
+    var(--secondary) 12px, var(--secondary) 24px
+  );
+  bottom: 20px; left: 20px;
+}
+.chart-pie {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: conic-gradient(
+    var(--accent) 0 120deg,
+    var(--primary) 120deg 240deg,
+    var(--success) 240deg 360deg
+  );
+  top: 26px; right: 18px;
+}
+.chart-line {
+  width: 130px; height: 60px;
+  background: linear-gradient(to right, transparent 0 10%, var(--secondary) 10% 20%);
+  background-size: 12px 60px;
+  bottom: 28px; right: 26px;
+}
