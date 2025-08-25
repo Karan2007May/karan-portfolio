@@ -261,3 +261,18 @@ a:focus, button:focus, input:focus, textarea:focus{
   background-size: 12px 60px;
   bottom: 28px; right: 26px;
 }
+.skills-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.chart-wrap {
+  background: #fff;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
