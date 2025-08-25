@@ -102,6 +102,7 @@ a:focus, button:focus, input:focus, textarea:focus{
   }
   .nav.open { display: flex; }
 }
+
 /* --- Hero --- */
 .hero {
   display: flex;
@@ -113,19 +114,20 @@ a:focus, button:focus, input:focus, textarea:focus{
   min-height: 90vh;
   gap: 40px;
   overflow: hidden;
+  z-index: 1; /* above bgCanvas */
 }
 
-#networkCanvas {
-  position: absolute;
+#bgCanvas {
+  position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: -1; /* behind everything */
 }
 
+/* Dashboard mockup / profile */
 .dashboard-mockup {
   background: #fff;
-  padding: 0;
   border-radius: 1.5rem;
   box-shadow: 0 10px 40px rgba(0,0,0,0.15);
   width: 340px;
@@ -135,6 +137,7 @@ a:focus, button:focus, input:focus, textarea:focus{
   justify-content: center;
   perspective: 1000px;
   transition: transform .4s ease;
+  position: relative; /* anchor widgets here */
 }
 
 .dashboard-mockup:hover {
@@ -146,9 +149,8 @@ a:focus, button:focus, input:focus, textarea:focus{
   height: 100%;
   border-radius: 1.2rem;
   object-fit: cover;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
-
 .hero__text {
   flex: 1 1 45%;
   max-width: 550px;
@@ -226,7 +228,7 @@ a:focus, button:focus, input:focus, textarea:focus{
 }
 
 
-/* Widgets inside Hero */
+/* Floating widgets anchored to mockup */
 .widget {
   position: absolute;
   background: #fff;
@@ -234,49 +236,52 @@ a:focus, button:focus, input:focus, textarea:focus{
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   padding: 0.8rem;
   animation: float 5s ease-in-out infinite;
-  transition: transform .3s ease, box-shadow .3s ease;
-}
-
-/* Hover effects: pop + glow */
-.dashboard-mockup:hover .widget {
-  transform: scale(1.1) rotate(3deg);
-  box-shadow: 0 8px 22px rgba(0,0,0,.15);
-}
-
-/* KPI Card */
-.widget.kpi {
-  top: 20px; right: -90px;
   font-size: 0.85rem;
-  text-align: center;
 }
 
-/* Mini Bar Chart */
-.widget.bar {
-  bottom: 30px; left: -80px;
-  display: flex;
-  gap: 4px;
-}
+/* relative positions around avatar */
+.widget.kpi { top: -20px; right: -80px; }
+.widget.bar { bottom: -20px; left: -70px; display: flex; gap: 4px; }
+.widget.pie { bottom: -30px; right: -70px; width: 60px; height: 60px; border-radius: 50%; background: conic-gradient(#3a86ff 30%, #ff006e 40%, #06d6a0 30%); }
+
 .widget.bar .bar-fill {
-  width: 10px;
+  width: 8px;
   background: linear-gradient(180deg, #3a86ff, #8338ec);
   border-radius: 3px;
-  height: 30px;
 }
 
-/* Mini Pie Chart */
-.widget.pie {
-  bottom: 40px; right: -70px;
-  width: 70px; height: 70px;
-  border-radius: 50%;
-  background: conic-gradient(#3a86ff 30%, #ff006e 40%, #06d6a0 30%);
-}
-
-/* Floating animation */
+/* Float animation */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
 }
 
+/* --- Responsive scaling --- */
+@media (max-width: 1024px) {
+  .dashboard-mockup {
+    width: 280px;
+    height: 320px;
+  }
+  .widget.kpi { right: -60px; }
+  .widget.bar { left: -50px; }
+  .widget.pie { right: -50px; }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+  .dashboard-mockup {
+    width: 85%;
+    height: auto;
+    aspect-ratio: 4/5; /* keeps tall 3D look */
+  }
+  .widget.kpi { top: -10px; right: -40px; }
+  .widget.bar { bottom: -10px; left: -40px; }
+  .widget.pie { bottom: -20px; right: -40px; }
+}
 
 /* Section wrappers + separators */
 .section{max-width:1100px; margin:56px auto; padding:0 20px}
