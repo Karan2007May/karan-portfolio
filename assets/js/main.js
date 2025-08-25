@@ -8,7 +8,6 @@ if (menuToggle && nav) {
     menuToggle.setAttribute("aria-expanded", String(open));
   };
   menuToggle.addEventListener("click", toggle);
-  // Close menu when a nav link is clicked (mobile)
   nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
     if (nav.classList.contains("open")) toggle();
   }));
@@ -18,135 +17,130 @@ if (menuToggle && nav) {
 const year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();
 
-// -------- Background particles + subtle network lines --------
-const canvas = document.getElementById("bgCanvas");
-if (canvas) {
-  const ctx = canvas.getContext("2d");
+// -------- Background particles (site-wide) --------
+const bgCanvas = document.getElementById("bgCanvas");
+if (bgCanvas) {
+  const ctx = bgCanvas.getContext("2d");
   let width, height;
   const particles = [];
-  const mouse = { x: null, y: null };
-
   function resize(){
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    width = bgCanvas.width = window.innerWidth;
+    height = bgCanvas.height = window.innerHeight;
   }
   window.addEventListener("resize", resize);
   resize();
-
-  window.addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-
   class Particle {
     constructor(){
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.r = Math.random() * 2.5 + 1;
-      this.dx = (Math.random() - 0.5) * 0.35;
-      this.dy = (Math.random() - 0.5) * 0.35;
-      this.color = ["#3a86ff","#8338ec","#ff006e","#06d6a0"][Math.floor(Math.random()*4)];
+      this.r = Math.random() * 2 + 1;
+      this.dx = (Math.random()-0.5)*0.3;
+      this.dy = (Math.random()-0.5)*0.3;
     }
-    update(){
-      this.x += this.dx; this.y += this.dy;
-      if (this.x < 0 || this.x > width) this.dx *= -1;
-      if (this.y < 0 || this.y > height) this.dy *= -1;
-
-      // gentle mouse repulsion
-      if (mouse.x !== null) {
-        const dx = mouse.x - this.x, dy = mouse.y - this.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < 110) {
-          this.x -= dx / 28;
-          this.y -= dy / 28;
-        }
-      }
+    move(){
+      this.x+=this.dx; this.y+=this.dy;
+      if(this.x<0||this.x>width) this.dx*=-1;
+      if(this.y<0||this.y>height) this.dy*=-1;
     }
     draw(){
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = this.color + "88";
+      ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      ctx.fillStyle="#9993";
       ctx.fill();
     }
   }
-
-  // initialize particles
-  for (let i = 0; i < 110; i++) particles.push(new Particle());
-
-  function connectParticles(){
-    for (let i = 0; i < particles.length; i++){
-      for (let j = i + 1; j < particles.length; j++){
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < 120){
-          const alpha = 1 - dist / 120;
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(140, 150, 160, ${alpha * 0.6})`;
-          ctx.lineWidth = 1;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-  }
-
+  for(let i=0;i<80;i++) particles.push(new Particle());
   function animate(){
-    ctx.clearRect(0, 0, width, height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    connectParticles();
+    ctx.clearRect(0,0,width,height);
+    particles.forEach(p=>{p.move();p.draw()});
     requestAnimationFrame(animate);
   }
   animate();
 }
 
-// -------- Interactive SVG shapes hover --------
-document.querySelectorAll(".bg-shape").forEach(shape => {
-  shape.addEventListener("mousemove", () => {
-    shape.style.transform = "scale(1.05) rotate(10deg)";
-  });
-  shape.addEventListener("mouseleave", () => {
-    shape.style.transform = "scale(1) rotate(0)";
-  });
-});
-
-// -------- Skills Charts (Chart.js loaded via CDN in index.html) --------
-(function skillsInit(){
-  if (typeof Chart === "undefined") return;
-
-  // Bar Chart
-  const barCtx = document.getElementById("skillsBar");
-  if (barCtx) {
-    new Chart(barCtx, {
-      type: "bar",
-      data: {
-        labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
-        datasets: [{
-          label: "Skill Level",
-          data: [9,8,8,7,7,8],
-          backgroundColor: ["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: { intersect: false, mode: "index" } },
-        scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: 10, grid: { color: "#eee" } } }
-      }
-    });
+// -------- Hero network graph only --------
+const hero = document.querySelector(".hero");
+const netCanvas = document.getElementById("networkCanvas");
+if (hero && netCanvas) {
+  const ctx = netCanvas.getContext("2d");
+  function resize(){
+    netCanvas.width = hero.clientWidth;
+    netCanvas.height = hero.clientHeight;
   }
-
-  // Pie Chart
-  const pieCtx = document.getElementById("skillsPie");
-  if (pieCtx) {
-    new Chart(pieCtx, {
-      type: "pie",
-      data: {
-        labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
-        datasets: [{
-          data: [30,20,15,15,10,10],
-          backgroundColor: ["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]
-        }]
-      },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "bottom" } } }
+  resize();
+  window.addEventListener("resize", resize);
+  let width = netCanvas.width, height = netCanvas.height;
+  const nodes = Array.from({length:40},()=>({
+    x:Math.random()*width,
+    y:Math.random()*height,
+    dx:(Math.random()-0.5)*0.6,
+    dy:(Math.random()-0.5)*0.6,
+    r:Math.random()*2+1.5
+  }));
+  const mouse={x:null,y:null};
+  hero.addEventListener("mousemove",e=>{
+    const rect=hero.getBoundingClientRect();
+    mouse.x=e.clientX-rect.left;
+    mouse.y=e.clientY-rect.top;
+  });
+  function animate(){
+    ctx.clearRect(0,0,width,height);
+    nodes.forEach(n=>{
+      n.x+=n.dx; n.y+=n.dy;
+      if(n.x<0||n.x>width) n.dx*=-1;
+      if(n.y<0||n.y>height) n.dy*=-1;
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle="#3a86ffbb";
+      ctx.fill();
     });
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x;
+        const dy=nodes[i].y-nodes[j].y;
+        const dist=Math.hypot(dx,dy);
+        if(dist<120){
+          ctx.beginPath();
+          ctx.strokeStyle=`rgba(100,120,160,${1-dist/120})`;
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    if(mouse.x!==null){
+      nodes.forEach(n=>{
+        const dx=n.x-mouse.x, dy=n.y-mouse.y;
+        const dist=Math.hypot(dx,dy);
+        if(dist<150){
+          ctx.beginPath();
+          ctx.strokeStyle=`rgba(58,134,255,${1-dist/150})`;
+          ctx.moveTo(n.x,n.y);
+          ctx.lineTo(mouse.x,mouse.y);
+          ctx.stroke();
+        }
+      });
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// -------- Skills Charts --------
+(function skillsInit(){
+  if (typeof Chart==="undefined") return;
+  const barCtx=document.getElementById("skillsBar");
+  if(barCtx){
+    new Chart(barCtx,{type:"bar",data:{
+      labels:["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
+      datasets:[{data:[9,8,8,7,7,8],backgroundColor:["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]}]
+    },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+  }
+  const pieCtx=document.getElementById("skillsPie");
+  if(pieCtx){
+    new Chart(pieCtx,{type:"pie",data:{
+      labels:["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
+      datasets:[{data:[30,20,15,15,10,10],backgroundColor:["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]}]
+    },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"bottom"}}}});
   }
 })();
