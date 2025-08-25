@@ -1,32 +1,17 @@
 // -------- Modern Menu Toggle --------
 const menuToggle = document.getElementById("menuToggle");
 const nav = document.getElementById("nav");
-
 if (menuToggle && nav) {
-  const toggle = (force) => {
-    const open = typeof force === "boolean" ? force : !nav.classList.contains("open");
-    nav.classList.toggle("open", open);
+  const toggle = () => {
+    const open = nav.classList.toggle("open");
     menuToggle.classList.toggle("active", open);
     menuToggle.setAttribute("aria-expanded", String(open));
   };
-
-  menuToggle.addEventListener("click", () => toggle());
-
-  nav.querySelectorAll("a").forEach(a =>
-    a.addEventListener("click", () => toggle(false))
-  );
-
-  window.addEventListener("keydown", e => {
-    if (e.key === "Escape" && nav.classList.contains("open")) toggle(false);
-  });
-
-  document.addEventListener("click", e => {
-    if (nav.classList.contains("open") &&
-        !nav.contains(e.target) &&
-        e.target !== menuToggle) {
-      toggle(false);
-    }
-  });
+  menuToggle.addEventListener("click", toggle);
+  // Close menu when a nav link is clicked (mobile)
+  nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+    if (nav.classList.contains("open")) toggle();
+  }));
 }
 
 // -------- Footer Year --------
@@ -37,20 +22,21 @@ if (year) year.textContent = new Date().getFullYear();
 const canvas = document.getElementById("bgCanvas");
 if (canvas) {
   const ctx = canvas.getContext("2d");
-  let width, height, particles = [];
+  let width, height;
+  const particles = [];
   const mouse = { x: null, y: null };
 
-  const resize = () => {
+  function resize(){
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
-  };
-  window.addEventListener("resize", () => requestAnimationFrame(resize));
+  }
+  window.addEventListener("resize", resize);
   resize();
 
   window.addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
   class Particle {
-    constructor() {
+    constructor(){
       this.x = Math.random() * width;
       this.y = Math.random() * height;
       this.r = Math.random() * 2.5 + 1;
@@ -58,11 +44,12 @@ if (canvas) {
       this.dy = (Math.random() - 0.5) * 0.35;
       this.color = ["#3a86ff","#8338ec","#ff006e","#06d6a0"][Math.floor(Math.random()*4)];
     }
-    update() {
+    update(){
       this.x += this.dx; this.y += this.dy;
       if (this.x < 0 || this.x > width) this.dx *= -1;
       if (this.y < 0 || this.y > height) this.dy *= -1;
 
+      // gentle mouse repulsion
       if (mouse.x !== null) {
         const dx = mouse.x - this.x, dy = mouse.y - this.y;
         const dist = Math.hypot(dx, dy);
@@ -72,7 +59,7 @@ if (canvas) {
         }
       }
     }
-    draw() {
+    draw(){
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.fillStyle = this.color + "88";
@@ -80,18 +67,19 @@ if (canvas) {
     }
   }
 
-  particles = Array.from({ length: 100 }, () => new Particle());
+  // initialize particles
+  for (let i = 0; i < 110; i++) particles.push(new Particle());
 
-  function connectParticles() {
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
+  function connectParticles(){
+    for (let i = 0; i < particles.length; i++){
+      for (let j = i + 1; j < particles.length; j++){
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
         const dist = Math.hypot(dx, dy);
-        if (dist < 120) {
+        if (dist < 120){
           const alpha = 1 - dist / 120;
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(140,150,160,${alpha * 0.6})`;
+          ctx.strokeStyle = `rgba(140, 150, 160, ${alpha * 0.6})`;
           ctx.lineWidth = 1;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -101,7 +89,7 @@ if (canvas) {
     }
   }
 
-  function animate() {
+  function animate(){
     ctx.clearRect(0, 0, width, height);
     particles.forEach(p => { p.update(); p.draw(); });
     connectParticles();
@@ -112,7 +100,7 @@ if (canvas) {
 
 // -------- Interactive SVG shapes hover --------
 document.querySelectorAll(".bg-shape").forEach(shape => {
-  shape.addEventListener("mouseenter", () => {
+  shape.addEventListener("mousemove", () => {
     shape.style.transform = "scale(1.05) rotate(10deg)";
   });
   shape.addEventListener("mouseleave", () => {
@@ -120,68 +108,45 @@ document.querySelectorAll(".bg-shape").forEach(shape => {
   });
 });
 
-// -------- Skills Charts (Chart.js) --------
-const initCharts = () => {
-  import("https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js")
-    .then(({ Chart }) => {
-      const barCtx = document.getElementById("skillsBar");
-      if (barCtx) {
-        new Chart(barCtx, {
-          type: "bar",
-          data: {
-            labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
-            datasets: [{
-              label: "Skill Level",
-              data: [9,8,8,7,7,8],
-              backgroundColor: ["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-              x: { grid: { display: false } },
-              y: { beginAtZero: true, max: 10, grid: { color: "#eee" } }
-            }
-          }
-        });
+// -------- Skills Charts (Chart.js loaded via CDN in index.html) --------
+(function skillsInit(){
+  if (typeof Chart === "undefined") return;
+
+  // Bar Chart
+  const barCtx = document.getElementById("skillsBar");
+  if (barCtx) {
+    new Chart(barCtx, {
+      type: "bar",
+      data: {
+        labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
+        datasets: [{
+          label: "Skill Level",
+          data: [9,8,8,7,7,8],
+          backgroundColor: ["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { intersect: false, mode: "index" } },
+        scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: 10, grid: { color: "#eee" } } }
       }
+    });
+  }
 
-      const pieCtx = document.getElementById("skillsPie");
-      if (pieCtx) {
-        new Chart(pieCtx, {
-          type: "pie",
-          data: {
-            labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
-            datasets: [{
-              label: "Tool Usage %",
-              data: [30,20,15,15,10,10],
-              backgroundColor: ["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: "bottom" } }
-          }
-        });
-      }
-    })
-    .catch(console.error);
-};
-
-if (document.readyState !== "loading") initCharts();
-else document.addEventListener("DOMContentLoaded", initCharts);
-
-// -------- Smooth Scrolling --------
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    const targetId = this.getAttribute("href").slice(1);
-    const target = document.getElementById(targetId);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  });
-});
+  // Pie Chart
+  const pieCtx = document.getElementById("skillsPie");
+  if (pieCtx) {
+    new Chart(pieCtx, {
+      type: "pie",
+      data: {
+        labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
+        datasets: [{
+          data: [30,20,15,15,10,10],
+          backgroundColor: ["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "bottom" } } }
+    });
+  }
+})();
