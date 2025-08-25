@@ -53,25 +53,26 @@
       </div>
     </div>
 
-   <div class="hero__media">
-  <div class="dashboard-mockup">
-    <img src="assets/img/avatar.jpg" alt="Karan Gattani portrait" class="avatar"/>
-    <div class="floating-chart chart-bar"></div>
-    <div class="floating-chart chart-pie"></div>
-    <div class="floating-chart chart-line"></div>
-  </div>
-</div>
-
-
-      <!-- Subtle SVG shapes (react on hover) -->
-      <svg class="bg-shape shape1" viewBox="0 0 600 600" aria-hidden="true">
-        <path fill="#3a86ff22" d="M300,532Q180,664,54,532Q-72,400,54,268Q180,136,300,268Q420,400,300,532Z"></path>
-      </svg>
-      <svg class="bg-shape shape2" viewBox="0 0 600 600" aria-hidden="true">
-        <path fill="#ff006e22" d="M300,540Q180,600,100,500Q20,400,100,300Q180,200,300,180Q420,160,500,250Q580,340,500,430Q420,520,300,540Z"></path>
-      </svg>
+    <div class="hero__media">
+      <div class="dashboard-mockup">
+        <img src="assets/img/avatar.jpg" alt="Karan Gattani portrait" class="avatar"/>
+        <div class="floating-chart dash-bar"></div>
+        <div class="floating-chart dash-pie"></div>
+        <div class="floating-chart dash-line"></div>
+      </div>
     </div>
+
+    <!-- Subtle SVG shapes -->
+    <svg class="bg-shape shape1" viewBox="0 0 600 600" aria-hidden="true">
+      <path fill="#3a86ff22" d="M300,532Q180,664,54,532Q-72,400,54,268Q180,136,300,268Q420,400,300,532Z"></path>
+    </svg>
+    <svg class="bg-shape shape2" viewBox="0 0 600 600" aria-hidden="true">
+      <path fill="#ff006e22" d="M300,540Q180,600,100,500Q20,400,100,300Q180,200,300,180Q420,160,500,250Q580,340,500,430Q420,520,300,540Z"></path>
+    </svg>
   </section>
+
+  <!-- Divider -->
+  <div class="section-divider"></div>
 
   <!-- About -->
   <section class="section" id="about" aria-labelledby="about-title">
@@ -83,40 +84,45 @@
     </p>
   </section>
 
-  <!-- Skills (Chart.js bar chart) -->
- <section id="skills" class="section">
-  <h2 class="section__title">Skills Overview</h2>
-  <div class="grid skills-grid">
-    <div class="chart-wrap">
-      <canvas id="skillsBar"></canvas>
-    </div>
-    <div class="chart-wrap">
-      <canvas id="skillsPie"></canvas>
-    </div>
-  </div>
-</section>
+  <!-- Divider -->
+  <div class="section-divider"></div>
 
+  <!-- Skills -->
+  <section id="skills" class="section" aria-labelledby="skills-title">
+    <h2 class="section__title" id="skills-title">Skills Overview</h2>
+    <div class="skills-grid">
+      <div class="chart-wrap">
+        <canvas id="skillsBar"></canvas>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="skillsPie"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="section-divider"></div>
 
   <!-- Projects preview -->
   <section class="section" id="projects" aria-labelledby="projects-title">
     <h2 class="section__title" id="projects-title">Featured Projects</h2>
-    <div class="grid cards">
+    <div class="cards">
       <a class="card" href="project/retail-sales-analytics.html">
-        <div class="card-chart chart-small chart1" aria-hidden="true"></div>
+        <div class="card-chart chart1" aria-hidden="true"></div>
         <div class="card__body">
           <h3>Retail Sales Analytics Dashboard</h3>
           <p>Power BI dashboard with 8+ KPIs and drilldowns.</p>
         </div>
       </a>
       <a class="card" href="project/customer-churn-prediction.html">
-        <div class="card-chart chart-small chart2" aria-hidden="true"></div>
+        <div class="card-chart chart2" aria-hidden="true"></div>
         <div class="card__body">
           <h3>Customer Churn Prediction</h3>
           <p>ML classification pipeline with explainability.</p>
         </div>
       </a>
       <a class="card" href="project/pizza-runner-sql.html">
-        <div class="card-chart chart-small chart3" aria-hidden="true"></div>
+        <div class="card-chart chart3" aria-hidden="true"></div>
         <div class="card__body">
           <h3>Pizza Runner SQL Case Study</h3>
           <p>Advanced SQL queries and actionable insights.</p>
@@ -127,6 +133,9 @@
       <a class="btn btn--ghost" href="./projects.html" aria-label="View all projects">View all projects</a>
     </div>
   </section>
+
+  <!-- Divider -->
+  <div class="section-divider"></div>
 
   <!-- Timeline -->
   <section class="section" id="timeline" aria-labelledby="timeline-title">
@@ -163,6 +172,9 @@
     </div>
   </section>
 
+  <!-- Divider -->
+  <div class="section-divider"></div>
+
   <!-- Contact -->
   <section class="section" id="contact" aria-labelledby="contact-title">
     <h2 class="section__title" id="contact-title">Let’s work together</h2>
@@ -194,6 +206,8 @@
     </div>
   </footer>
 
+  <!-- Load Chart.js first, then your JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="./assets/js/main.js"></script>
 </body>
 </html>
