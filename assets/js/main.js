@@ -10,20 +10,16 @@ if (menuToggle && nav) {
     menuToggle.setAttribute("aria-expanded", String(open));
   };
 
-  // Toggle on click
   menuToggle.addEventListener("click", () => toggle());
 
-  // Close when link clicked
   nav.querySelectorAll("a").forEach(a =>
     a.addEventListener("click", () => toggle(false))
   );
 
-  // Close on Esc key
   window.addEventListener("keydown", e => {
     if (e.key === "Escape" && nav.classList.contains("open")) toggle(false);
   });
 
-  // Close if clicking outside nav (mobile only)
   document.addEventListener("click", e => {
     if (nav.classList.contains("open") &&
         !nav.contains(e.target) &&
@@ -175,6 +171,17 @@ const initCharts = () => {
     .catch(console.error);
 };
 
-// Load charts after DOM ready
 if (document.readyState !== "loading") initCharts();
 else document.addEventListener("DOMContentLoaded", initCharts);
+
+// -------- Smooth Scrolling --------
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    const targetId = this.getAttribute("href").slice(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+});
