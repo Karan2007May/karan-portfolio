@@ -84,12 +84,18 @@
   </section>
 
   <!-- Skills (Chart.js bar chart) -->
-  <section class="section" id="skills" aria-labelledby="skills-title">
-    <h2 class="section__title" id="skills-title">Skills Overview</h2>
+ <section id="skills" class="section">
+  <h2 class="section__title">Skills Overview</h2>
+  <div class="grid skills-grid">
     <div class="chart-wrap">
-      <canvas id="skillsBar" aria-label="Bar chart of skills" role="img"></canvas>
+      <canvas id="skillsBar"></canvas>
     </div>
-  </section>
+    <div class="chart-wrap">
+      <canvas id="skillsPie"></canvas>
+    </div>
+  </div>
+</section>
+
 
   <!-- Projects preview -->
   <section class="section" id="projects" aria-labelledby="projects-title">
