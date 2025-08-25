@@ -109,40 +109,65 @@ document.querySelectorAll(".bg-shape").forEach(shape => {
   });
 });
 
-// -------- Skills Bar (Chart.js) --------
-const barCtx = document.getElementById("skillsBar");
-if (barCtx) {
+// -------- Skills Charts (Chart.js) --------
+const skillsInit = () => {
   import("https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js")
     .then(({ Chart }) => {
-      new Chart(barCtx, {
-        type: "bar",
-        data: {
-          labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
-          datasets: [{
-            label: "Skill Level",
-            data: [9,8,8,7,7,8],
-            backgroundColor: [
-              "#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"
-            ]
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: { intersect: false, mode: "index" }
+      // Bar Chart
+      const barCtx = document.getElementById("skillsBar");
+      if (barCtx) {
+        new Chart(barCtx, {
+          type: "bar",
+          data: {
+            labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
+            datasets: [{
+              label: "Skill Level",
+              data: [9,8,8,7,7,8],
+              backgroundColor: [
+                "#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"
+              ]
+            }]
           },
-          scales: {
-            x: { grid: { display: false } },
-            y: { beginAtZero: true, max: 10, grid: { color: "#eee" } }
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: { intersect: false, mode: "index" }
+            },
+            scales: {
+              x: { grid: { display: false } },
+              y: { beginAtZero: true, max: 10, grid: { color: "#eee" } }
+            }
           }
-        }
-      });
+        });
+      }
 
-      // Ensure the chart container has height on mobile
-      const wrap = barCtx.closest(".chart-wrap");
-      if (wrap) wrap.style.minHeight = "260px";
+      // Pie Chart
+      const pieCtx = document.getElementById("skillsPie");
+      if (pieCtx) {
+        new Chart(pieCtx, {
+          type: "pie",
+          data: {
+            labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
+            datasets: [{
+              label: "Tool Usage %",
+              data: [30,20,15,15,10,10], // adjust proportions as you prefer
+              backgroundColor: [
+                "#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" }
+            }
+          }
+        });
+      }
     })
-    .catch(() => {/* silently ignore CDN errors */});
-}
+    .catch(() => {/* fail safe */});
+};
+skillsInit();
