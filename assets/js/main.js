@@ -110,35 +110,39 @@ document.querySelectorAll(".bg-shape").forEach(shape => {
 });
 
 // -------- Skills Bar (Chart.js) --------
-import("https://cdn.jsdelivr.net/npm/chart.js").then(({ Chart }) => {
-  const barCtx = document.getElementById("skillsBar");
-  if (!barCtx) return;
+const barCtx = document.getElementById("skillsBar");
+if (barCtx) {
+  import("https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js")
+    .then(({ Chart }) => {
+      new Chart(barCtx, {
+        type: "bar",
+        data: {
+          labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
+          datasets: [{
+            label: "Skill Level",
+            data: [9,8,8,7,7,8],
+            backgroundColor: [
+              "#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { intersect: false, mode: "index" }
+          },
+          scales: {
+            x: { grid: { display: false } },
+            y: { beginAtZero: true, max: 10, grid: { color: "#eee" } }
+          }
+        }
+      });
 
-  new Chart(barCtx, {
-    type: "bar",
-    data: {
-      labels: ["Python","SQL","Excel","Power BI","Tableau","Data Storytelling"],
-      datasets: [{
-        label: "Skill Level",
-        data: [9,8,8,7,7,8],
-        backgroundColor: ["#3a86ff","#8338ec","#06d6a0","#ff006e","#ffbe0b","#118ab2"]
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { intersect: false, mode: "index" }
-      },
-      scales: {
-        x: { grid: { display: false } },
-        y: { beginAtZero: true, max: 10, grid: { color: "#eee" } }
-      }
-    }
-  });
-
-  // Ensure the chart container has height on mobile
-  const wrap = barCtx.closest(".chart-wrap");
-  if (wrap) wrap.style.minHeight = "260px";
-}).catch(() => {/* silently ignore CDN errors */});
+      // Ensure the chart container has height on mobile
+      const wrap = barCtx.closest(".chart-wrap");
+      if (wrap) wrap.style.minHeight = "260px";
+    })
+    .catch(() => {/* silently ignore CDN errors */});
+}
