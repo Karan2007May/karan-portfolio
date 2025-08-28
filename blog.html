@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Karan Gattani</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link rel="icon" href="favicon.ico" />
+  <script defer src="https://kit.fontawesome.com/7a9e0a4c5e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="./" class="logo">Karan<span class="highlight">Gattani</span></a>
+    <button class="menu-toggle" id="menuToggle"><div class="menu-icon"></div></button>
+    <nav id="nav" class="nav">
+      <a href="./">Home</a>
+      <a href="./projects.html">Projects</a>
+      <a href="./playground.html">Playground</a>
+      <a href="./blog.html" class="cta">Blog</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Blog -->
+  <section class="section">
+    <h1 class="section__title">Blog</h1>
+    <p>Sharing tutorials, case studies, and thoughts on data analytics & visualization.</p>
+
+    <div class="cards">
+      <a class="card" href="blog/why-sql-matters.html">
+        <div class="card-chart chart1"></div>
+        <div class="card__body">
+          <h3>Why SQL Still Matters</h3>
+          <p>SQL is the foundation of modern data analysis. Here's why it’s timeless.</p>
+        </div>
+      </a>
+      <a class="card" href="blog/powerbi-vs-tableau.html">
+        <div class="card-chart chart2"></div>
+        <div class="card__body">
+          <h3>Power BI vs Tableau</h3>
+          <p>A fair comparison of features, pricing, and learning curve.</p>
+        </div>
+      </a>
+      <a class="card" href="blog/data-storytelling.html">
+        <div class="card-chart chart3"></div>
+        <div class="card__body">
+          <h3>Data Storytelling</h3>
+          <p>How to make data visualizations impactful & memorable.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Karan Gattani</p>
+    <div class="footer__links">
+      <a href="https://github.com/Karan2007May" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/karangattani" target="_blank">LinkedIn</a>
+      <a href="./blog.html">Blog</a>
+    </div>
+  </footer>
+
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
