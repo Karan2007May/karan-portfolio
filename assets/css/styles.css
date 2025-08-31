@@ -404,26 +404,30 @@ a:focus, button:focus, input:focus, textarea:focus{
   .chart-wrap{padding:8px}
   .proj-card img{height:150px}
 }
-
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin-bottom: 2rem; /* ensures space before button */
+  margin-bottom: 2.5rem; /* space before button */
 }
 
 .project-card {
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  perspective: 1000px;
 }
 
-.project-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+.project-inner {
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 1rem;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+  padding: 1.2rem;
+  text-align: center;
+  transform: translateZ(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover .project-inner {
+  transform: translateY(-10px) rotateX(4deg) rotateY(-3deg);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
 }
 
 .project-thumb {
@@ -434,6 +438,25 @@ a:focus, button:focus, input:focus, textarea:focus{
   margin-bottom: 1rem;
 }
 
-.projects-btn {
-  text-align: center;
+/* 3D Button */
+.btn-3d {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  background: linear-gradient(135deg, #007bff, #0056d2);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 0 #0041a8;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-3d:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 0 #0041a8, 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.btn-3d:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #0041a8;
 }
