@@ -115,35 +115,38 @@
   <div class="section-divider"></div>
 
   <!-- Projects preview -->
-  <section class="section" id="projects" aria-labelledby="projects-title">
-    <h2 class="section__title" id="projects-title">Featured Projects</h2>
-    <div class="cards">
-      <a class="card" href="project/retail-sales-analytics.html">
-        <div class="card-chart chart1" aria-hidden="true"></div>
-        <div class="card__body">
-          <h3>Retail Sales Analytics Dashboard</h3>
-          <p>Power BI dashboard with 8+ KPIs and drilldowns.</p>
-        </div>
-      </a>
-      <a class="card" href="project/customer-churn-prediction.html">
-        <div class="card-chart chart2" aria-hidden="true"></div>
-        <div class="card__body">
-          <h3>Customer Churn Prediction</h3>
-          <p>ML classification pipeline with explainability.</p>
-        </div>
-      </a>
-      <a class="card" href="project/pizza-runner-sql.html">
-        <div class="card-chart chart3" aria-hidden="true"></div>
-        <div class="card__body">
-          <h3>Pizza Runner SQL Case Study</h3>
-          <p>Advanced SQL queries and actionable insights.</p>
-        </div>
-      </a>
-    </div>
-    <div class="more-link">
-      <a class="btn btn--ghost" href="./projects.html" aria-label="View all projects">View all projects</a>
-    </div>
-  </section>
+  <!-- Featured Projects -->
+<section id="projects" class="section container">
+  <h2>Featured Projects</h2>
+  <div class="projects-grid">
+    <!-- Project 1 -->
+    <article class="project-card">
+      <img src="assets/img/projects/sales-dashboard.jpg" alt="Retail Sales Analytics Dashboard thumbnail" class="project-thumb">
+      <h3>Retail Sales Analytics Dashboard</h3>
+      <p>Power BI dashboard with 8+ KPIs and drilldowns.</p>
+    </article>
+
+    <!-- Project 2 -->
+    <article class="project-card">
+      <img src="assets/img/projects/churn-prediction.jpg" alt="Customer Churn Prediction thumbnail" class="project-thumb">
+      <h3>Customer Churn Prediction</h3>
+      <p>ML classification pipeline with explainability.</p>
+    </article>
+
+    <!-- Project 3 -->
+    <article class="project-card">
+      <img src="assets/img/projects/sql-case-study.jpg" alt="Pizza Runner SQL Case Study thumbnail" class="project-thumb">
+      <h3>Pizza Runner SQL Case Study</h3>
+      <p>Advanced SQL queries and actionable insights.</p>
+    </article>
+  </div>
+
+  <!-- Add spacing before button -->
+  <div class="projects-btn">
+    <a href="projects.html" class="btn">View all projects</a>
+  </div>
+</section>
+
 
   <!-- Divider -->
   <div class="section-divider"></div>
