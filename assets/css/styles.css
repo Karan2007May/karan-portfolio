@@ -506,7 +506,6 @@ a:focus, button:focus, input:focus, textarea:focus{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  align-items: stretch; /* ensures equal height */
 }
 
 .proj-card {
@@ -518,12 +517,13 @@ a:focus, button:focus, input:focus, textarea:focus{
   box-shadow: 0 6px 12px rgba(0,0,0,0.12);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   padding: 1.5rem;
+  height: 100%; /* ✅ ensures full height in grid */
 }
 
 .proj-card img {
   border-radius: 0.75rem;
   width: 100%;
-  height: 180px; /* fixed thumbnail height */
+  height: 180px; /* fixed image height */
   object-fit: cover;
   margin-bottom: 1rem;
 }
@@ -534,6 +534,11 @@ a:focus, button:focus, input:focus, textarea:focus{
 }
 
 .proj-card p {
-  flex-grow: 1; /* fills empty space to balance heights */
+  flex-grow: 1; /* ✅ expands description evenly */
   margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.proj-card a {
+  align-self: flex-start; /* keeps button at bottom-left */
 }
